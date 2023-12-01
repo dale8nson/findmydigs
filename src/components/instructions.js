@@ -142,35 +142,32 @@ const Instructions = ({ language }) => {
   const pictureIn = useRef(true);
 
   const [inout, setInout] = useState(Array(imageUrls.length).fill(null).map((urls,i) => Array(imageUrls[i].length).fill(true)));
+  const [ pictureLoading, setPictureLoading] = useState(true);
+
+  const onPictureLoaded = e => {
+    setPictureLoading(false);
+  }
+
   console.log(`inout:`, inout);
   const images = useMemo(() => imageUrls.map((urls, i) => {
     return urls.map((url, j) => {
       return (
-        <Slide in={inout[i][j]} direction={pictureSwipeDirection.current} timeout={500} container={pictureContainer.current} >
-          <CardMedia component='img' image={imageUrls[i][j]} sx={{ height: '50vh', objectFit: 'contain' }} />
-        </Slide>
+        <Box component={'div'} sx={{position:'relative'}}>
+          <Slide in={inout[i][j]} direction={pictureSwipeDirection.current} timeout={500} container={pictureContainer.current} sx={{width:'100%', zIndex:0}} >
+            <CardMedia component='img' image={imageUrls[i][j]} sx={{ height: '50vh', objectFit: 'contain' }} onLoad={onPictureLoaded} />
+          </Slide>
+          <Skeleton variant='text' sx={{height:'100%', width:'100%', position:'absolute', top:0}} />
+        </Box>
       )
     }
     )
   }),[inout, pictureSwipeDirection.current]);
   const pictureCount = useRef(imageUrls[0].length);
   const Pictures = () => {
-    // inout[activeStep][pictureIndex] = true;
     
     return images[activeStep][pictureIndex];
+  }
 
-    // return (
-    //   <>
-    //     <Slide direction={pictureSwipeDirection.current} timeout={500} in appear={pictureAppear.current} container={pictureContainer.current} >
-    //       <CardMedia component='img' image={images[activeStep][pictureIndex]} sx={{ height: '50vh', objectFit: 'contain' }} />
-    //     </Slide>
-    //   </>
-    // );
-
-
-  }//, [activeStep, pictureSwipeDirection.current, pictureIndex, pictureAppear.current]);
-
-  // console.log(`pictures[0][0]:`, pictures[0][0]);
 
   const onLeftButtonClicked = (eventData) => {
     console.log(`user swiped left`);
@@ -262,19 +259,21 @@ const Instructions = ({ language }) => {
   })
   return (
     <>
-      <Card raised={true} sx={{ m: 'auto', height: '100vh', p: 2, backgroundColor: '#333333' }}>
-        <div {...handlers} >
-          <div className="relative">
+    <div {...handlers} >
+      <Card raised={true} sx={{ m:'auto', width:{xs:'100vw', md:'50vw'}, height: '100vh', p: 2, backgroundColor: '#333333', zIndex:0, position:'relative' }}>
+        <CardMedia component={'div'} sx={{zIndex:0}}>
+          <Box className="relative m-auto" sx={{height:'100%'}} >
           <Pictures />
-          <Button sx={{position:'absolute', left:0, top:'50%'}} className='absolute left-0 top-[50%]' onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-transparent rounded-full  ' /></Button>
-          <Button sx={{position: 'absolute', right:0, top:'50%'}} className='absolute right-0 top-[50%]' onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-transparent rounded-full ' /></Button>
-          </div>
-          <CardContent sx={{ color: '#ffffff', height: '50vh' }} className="MuiDialog-paper" >
-            <Paper variant='elevation' elevation={5} sx={{ p: 1, m: 0, backgroundColor: '#333333', color: '#fff' }} >
-              <Typography className={`${language === "arabic" && '[writing-mode:horizontal-rtl]'}`} >{language && steps[language][activeStep]}</Typography>
-            </Paper>
-          </CardContent>
-        </div>
+          <Button sx={{position:'absolute', left:0, top:'50%'}}  onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-white bg-opacity-30 rounded-full  ' /></Button>
+          <Button sx={{position: 'absolute', right:0, top:'50%'}} onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-white  bg-opacity-30 rounded-full ' /></Button>
+          </Box>
+        </CardMedia>
+      <CardContent sx={{ color: '#ffffff', width:'95%', height:'auto', zIndex:10, position:'absolute', bottom:5, margin:'auto' }} className="MuiDialog-paper" >
+        <Paper variant='elevation' elevation={5} sx={{ p: 1, margin: '10%', backgroundColor: '#333333', color: '#fff' }} >
+          <Typography className={`${language === "arabic" && '[writing-mode:horizontal-rtl]'}`} >{language && steps[language][activeStep]}</Typography>
+        </Paper>
+      </CardContent>
+        
         {/* <MobileStepper sx={{ maxWidth: { xs: '100%', sm: '100%', md: '100%' }, position: 'fixed', bottom: 0, m: 'auto', backgroundColor: '#333333', color: '#ffffff' }}
           variant="text"
           steps={3}
@@ -282,6 +281,7 @@ const Instructions = ({ language }) => {
           nextButton={<Button size='large' onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === 2 ? true : false}><KeyboardArrowRight /></Button>}
           backButton={<Button size='large' onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0 ? true : false}><KeyboardArrowLeft /></Button>} /> */}
       </Card>
+      </div>
     </>
   );
 }
