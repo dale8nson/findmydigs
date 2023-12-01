@@ -36,9 +36,9 @@ const LanguageSelect = ({ setLanguage, languageDialogOpen, setLanguageDialogOpen
   const languages = {
     'English': 'english',
     '官话': 'mandarin',
-    'عَرَبِيّ': 'arabic',
+    // 'عَرَبِيّ': 'arabic',
     'ਪੰਜਾਬੀ': 'punjabi-gurmukhi',
-    'اردو': 'urdu',
+    // 'اردو': 'urdu',
     'ትግርኛ': 'tigrinya',
     'አማርኛ': 'amharic',
     'tiếng Việt': 'vietnamese',

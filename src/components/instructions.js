@@ -25,6 +25,8 @@ import secondFlightPartI from '../images/IMG_1821.webp';
 import secondFlightPartII from '../images/IMG_1823.webp';
 import apartmentDoorLS from '../images/IMG_1824.webp';
 import apartmentDoorCU from '../images/IMG_1826.webp';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Instructions = ({ language }) => {
 
@@ -44,10 +46,18 @@ const Instructions = ({ language }) => {
 
     ],
     'arabic': [
-      `.` + `حاليا يتم استخدامه كمدخل ومخرج` + `.` + `لافتة` + `"No Entry"` + `يمكنك تجاهل` + `.` + `يقع مبنى شقتنا بجوار هذا الممر` + `.` + `Quest` + `ادخل الممر المجاور لفندق`,
-      `.` + `اتصل بالوحدة 29 على جهاز الاتصال الداخلي بجوار الباب المعدني، ويمكننا السماح لك بالدخول`,
-      `."Level 2"` + `شقتنا على`
-    ],
+      
+      `ادخل إلى الممر المجاور لـ` +
+      `"Quest"` +
+      `فندق.` +
+      `مبنى شقتنا بجوار هذا الممر.` +
+      `يمكنك تجاهل` +
+      `"No Entry"` +
+       `علامة.` +
+      `حاليًا يتم استخدامه كمدخل ومخرج`,
+      "اتصل بالوحدة 29 على جهاز الاتصال الداخلي المجاور للباب المعدني، ويمكننا السماح لك بالدخول",
+      `شقتنا في "الطابق الثاني`
+          ],
     'swahili': [
       'Ingia barabara ya gari karibu na Hoteli ya Quest. Jengo letu la ghorofa liko karibu na barabara hiyo. Unaweza kupuuza ishara ya "No Entry". Kwa sasa inatumika kama njia ya kuingilia na kutoka.',
       'Piga simu kwa kitengo cha 29 kwenye intercom karibu na mlango wa chuma, na tutakuruhusu ndani.',
@@ -210,19 +220,23 @@ const Instructions = ({ language }) => {
     <>
       <Card raised={true} sx={{ m: 'auto', height: '100vh', p: 2, backgroundColor: '#333333' }}>
         <div {...handlers} >
+          <div className="relative">
           <Pictures />
+          <ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-transparent rounded-full absolute left-0 top-[50%] ' />
+          <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-transparent rounded-full  absolute right-0 top-[50%] ' />
+          </div>
           <CardContent sx={{ color: '#ffffff', height: '50vh' }} className="MuiDialog-paper" >
             <Paper variant='elevation' elevation={5} sx={{ p: 1, m: 0, backgroundColor: '#333333', color: '#fff' }} >
-              <Typography>{language && steps[language][activeStep]}</Typography>
+              <Typography className={`${language === "arabic" && '[writing-mode:horizontal-rtl]'}`} >{language && steps[language][activeStep]}</Typography>
             </Paper>
           </CardContent>
         </div>
-        <MobileStepper sx={{ maxWidth: { xs: '100%', sm: '100%', md: '100%' }, position: 'fixed', bottom: 0, m: 'auto', backgroundColor: '#333333', color: '#ffffff' }}
+        {/* <MobileStepper sx={{ maxWidth: { xs: '100%', sm: '100%', md: '100%' }, position: 'fixed', bottom: 0, m: 'auto', backgroundColor: '#333333', color: '#ffffff' }}
           variant="text"
           steps={3}
           activeStep={activeStep}
-          nextButton={<Button size='lg' onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === 2 ? true : false}><KeyboardArrowRight /></Button>}
-          backButton={<Button size='lg' onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0 ? true : false}><KeyboardArrowLeft /></Button>} />
+          nextButton={<Button size='large' onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === 2 ? true : false}><KeyboardArrowRight /></Button>}
+          backButton={<Button size='large' onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0 ? true : false}><KeyboardArrowLeft /></Button>} /> */}
       </Card>
     </>
   );
