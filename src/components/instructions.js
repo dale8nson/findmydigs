@@ -172,6 +172,50 @@ const Instructions = ({ language }) => {
 
   // console.log(`pictures[0][0]:`, pictures[0][0]);
 
+  const onLeftButtonClicked = (eventData) => {
+    console.log(`user swiped left`);
+    if (pictureIndex < pictureCount.current - 1) {
+      const a = inout[activeStep].toSpliced(pictureIndex,2,false,true);
+      setInout(inout.toSpliced(activeStep,1,a));
+      setPictureIndex(pictureIndex + 1);
+
+    } else if (activeStep < 2) {
+      console.log(`activeStep < 2`);
+      console.log(`setInout(inout[activeStep].splice(pictureIndex,1,false));`);
+      const a1 = inout[activeStep].toSpliced(pictureIndex,1,false);
+      setInout(inout.toSpliced(activeStep,1,a1));
+      const a2 = inout[activeStep + 1].toSpliced(0,1,true);
+      setInout(inout.toSpliced(activeStep + 1,1,a2));
+      console.log(`setInout(inout[activeStep + 1].splice(0,1,true));`);
+      console.log(`inout:`, inout);
+      setActiveStep(activeStep + 1);
+      pictureCount.current = images[activeStep + 1].length;
+      setPictureIndex(0);
+    }
+    pictureSwipeDirection.current = 'left';
+    // pictureAppear.current = true;
+  }
+
+  const onRightButtonClicked = (eventData)  => {
+    console.log(`user swiped right`);
+    if (pictureIndex > 0) {
+      const a = inout[activeStep].toSpliced(pictureIndex - 1, 2, true, false);
+      setInout(inout.toSpliced(activeStep, 1, a));
+      setPictureIndex(pictureIndex - 1);
+    } else if (activeStep > 0) {
+      const a1 = inout[activeStep].toSpliced(pictureIndex,1,false);
+      setInout(inout.toSpliced(activeStep, 1, a1));
+      pictureCount.current = images[activeStep - 1].length;
+      const a2 = inout[activeStep - 1].toSpliced(pictureCount.current - 1, 1, true);
+      setInout(inout.toSpliced(activeStep - 1, 1, a2));
+      setActiveStep(activeStep - 1);
+      setPictureIndex(pictureCount.current - 1);
+    }
+    pictureSwipeDirection.current = 'right';
+    // pictureAppear.current = true;
+
+  }
+
   const handlers = useSwipeable({
     onSwipedLeft(eventData) {
       console.log(`user swiped left`);
@@ -222,8 +266,8 @@ const Instructions = ({ language }) => {
         <div {...handlers} >
           <div className="relative">
           <Pictures />
-          <ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-transparent rounded-full absolute left-0 top-[50%] ' />
-          <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-transparent rounded-full  absolute right-0 top-[50%] ' />
+          <Button className='absolute left-0 top-[50%]' onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-transparent rounded-full absolute left-0 top-[50%] ' /></Button>
+          <Button className='absolute right-0 top-[50%]' onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-transparent rounded-full  absolute right-0 top-[50%] ' /></Button>
           </div>
           <CardContent sx={{ color: '#ffffff', height: '50vh' }} className="MuiDialog-paper" >
             <Paper variant='elevation' elevation={5} sx={{ p: 1, m: 0, backgroundColor: '#333333', color: '#fff' }} >
