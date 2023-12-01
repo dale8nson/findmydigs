@@ -266,8 +266,8 @@ const Instructions = ({ language }) => {
         <div {...handlers} >
           <div className="relative">
           <Pictures />
-          <Button className='absolute left-0 top-[50%]' onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-transparent rounded-full absolute left-0 top-[50%] ' /></Button>
-          <Button className='absolute right-0 top-[50%]' onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-transparent rounded-full  absolute right-0 top-[50%] ' /></Button>
+          <Button sx={{position:'absolute', left:0, top:'50%'}} className='absolute left-0 top-[50%]' onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-transparent rounded-full  ' /></Button>
+          <Button sx={{position: 'absolute', right:0, top:'50%'}} className='absolute right-0 top-[50%]' onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-transparent rounded-full ' /></Button>
           </div>
           <CardContent sx={{ color: '#ffffff', height: '50vh' }} className="MuiDialog-paper" >
             <Paper variant='elevation' elevation={5} sx={{ p: 1, m: 0, backgroundColor: '#333333', color: '#fff' }} >
