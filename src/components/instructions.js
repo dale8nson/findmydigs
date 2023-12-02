@@ -265,7 +265,7 @@ const Instructions = ({ language }) => {
   return (
     <>
     <div {...handlers} >
-      <Card raised={true} sx={{ margin:'auto', width:{xs:'100vw', md:'50vw'}, height: '100vh', p: 2, backgroundColor: '#333333', zIndex:0, position:'absolute', top:0, left:'25%', overflow:'hidden' }} >
+      <Card raised={true} sx={{ margin:'auto', width:{xs:'95vw', md:'50vw'}, height: '100vh', p: 2, backgroundColor: '#333333', zIndex:0, position:'absolute', top:0, left:'25%', overflow:'hidden' }} >
         <CardMedia component={'div'} sx={{zIndex:0, height:'75%', position:'absolute', top:0}} >
           <Box className="relative m-auto" sx={{height:'100%'}} >
           <Pictures />
