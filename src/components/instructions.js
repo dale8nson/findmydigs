@@ -15,21 +15,11 @@ import Slide from '@mui/material/Slide';
 import Container from '@mui/material/Container';
 import { useSwipeable } from "react-swipeable";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
-import entrance from '../images/IMG_1809.webp';
-import metalDoor from '../images/IMG_1812.webp';
-import intercom from '../images/IMG_1815.webp';
-import postEntry from '../images/IMG_1817.webp';
-import carparkView from '../images/IMG_1818.webp';
-import apartmentSign from '../images/IMG_1819.webp';
-import firstFlight from '../images/IMG_1820.webp';
-import secondFlightPartI from '../images/IMG_1821.webp';
-import secondFlightPartII from '../images/IMG_1823.webp';
-import apartmentDoorLS from '../images/IMG_1824.webp';
-import apartmentDoorCU from '../images/IMG_1826.webp';
+
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const Instructions = ({ language }) => {
+const Instructions = ({ language, inout, setInout, imageUrls }) => {
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -127,11 +117,11 @@ const Instructions = ({ language }) => {
     ],
   }
 
-  const imageUrls = [
-    [entrance],
-    [metalDoor, intercom],
-    [postEntry, carparkView, apartmentSign, firstFlight, secondFlightPartI, secondFlightPartII, apartmentDoorLS, apartmentDoorCU]
-  ];
+  // const imageUrls = [
+  //   [entrance],
+  //   [metalDoor, intercom],
+  //   [postEntry, carparkView, apartmentSign, firstFlight, secondFlightPartI, secondFlightPartII, apartmentDoorLS, apartmentDoorCU]
+  // ];
 
   const [pictureIndex, setPictureIndex] = useState(0);
   
@@ -140,7 +130,7 @@ const Instructions = ({ language }) => {
   const pictureContainer = useRef(null);
   const pictureIn = useRef(true);
 
-  const [inout, setInout] = useState(Array(imageUrls.length).fill(null).map((urls,i) => Array(imageUrls[i].length).fill(true)));
+  // const [inout, setInout] = useState(Array(imageUrls.length).fill(null).map((urls,i) => Array(imageUrls[i].length).fill(false)));
   const [ pictureLoading, setPictureLoading] = useState(false);
 
   const onPictureLoadStart = e => {
@@ -156,7 +146,7 @@ const Instructions = ({ language }) => {
     return urls.map((url, j) => {
       return (
         <Box component={'div'} sx={{position:'absolute', margin:'auto', width:'100%', height:'100%'}}>
-          <Slide in={inout[i][j]} direction={pictureSwipeDirection.current} timeout={500} container={pictureContainer.current} sx={{width:'100%', zIndex:0}} >
+          <Slide mountOnEnter unmountOnExit in={inout[i][j]} direction={pictureSwipeDirection.current} timeout={500} container={pictureContainer.current} sx={{width:'100%', zIndex:0}} >
             <CardMedia loading='lazy' component='img' image={imageUrls[i][j]} sx={{ width:'100%', height: '100%', objectFit: 'contain' }} onLoadStart={onPictureLoadStart} onLoad={onPictureLoaded} />
           </Slide>
           {pictureLoading && <Skeleton variant='rectangular' sx={{margin:'auto', height:'25%', width:'95%', position:'absolute', top:0, zIndex:20}} /> }
@@ -263,6 +253,9 @@ const Instructions = ({ language }) => {
 
     }
   })
+
+  
+
   return (
     <>
     <div {...handlers} >

@@ -26,10 +26,12 @@ import '@fontsource/roboto/700.css';
 
 import DialogButton from "./dialog-button";
 
-const LanguageSelect = ({ setLanguage, languageDialogOpen, setLanguageDialogOpen }) => {
+const LanguageSelect = ({ setLanguage, languageDialogOpen, setLanguageDialogOpen, inout, setInout }) => {
 
   const clickHandler = (val) => {
     setLanguage(val);
+    const a = inout[0].toSpliced(0,1,true);
+    setInout(inout.toSpliced(0,1,a));
     setLanguageDialogOpen(false);
   }
 
