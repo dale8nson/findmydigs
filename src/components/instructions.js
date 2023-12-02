@@ -156,7 +156,6 @@ const Instructions = ({ language }) => {
           <Slide in={inout[i][j]} direction={pictureSwipeDirection.current} timeout={500} container={pictureContainer.current} sx={{width:'100%', zIndex:0}} >
             <CardMedia component='img' image={imageUrls[i][j]} sx={{ height: '50vh', objectFit: 'contain' }} onLoad={onPictureLoaded} />
           </Slide>
-          <Skeleton variant='text' sx={{height:'100%', width:'100%', position:'absolute', top:0}} />
         </Box>
       )
     }
@@ -260,13 +259,15 @@ const Instructions = ({ language }) => {
   return (
     <>
     <div {...handlers} >
-      <Card raised={true} sx={{ m:'auto', width:{xs:'100vw', md:'50vw'}, height: '100vh', p: 2, backgroundColor: '#333333', zIndex:0, position:'relative' }}>
+      <Card raised={true} sx={{ m:'auto', width:{xs:'100vw', md:'50vw'}, height: '100vh', p: 2, backgroundColor: '#333333', zIndex:0, position:'relative' }} onLoad={ onPictureLoaded }>
         <CardMedia component={'div'} sx={{zIndex:0}}>
           <Box className="relative m-auto" sx={{height:'100%'}} >
           <Pictures />
           <Button sx={{position:'absolute', left:0, top:'50%'}}  onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-white bg-opacity-30 rounded-full  ' /></Button>
           <Button sx={{position: 'absolute', right:0, top:'50%'}} onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-white  bg-opacity-30 rounded-full ' /></Button>
           </Box>
+          {pictureLoading && <Skeleton variant='text' sx={{height:'100%', width:'100%', position:'absolute', top:0}} /> }
+
         </CardMedia>
       <CardContent sx={{ color: '#ffffff', width:'95%', height:'auto', zIndex:10, position:'absolute', bottom:5, margin:'auto' }} className="MuiDialog-paper" >
         <Paper variant='elevation' elevation={5} sx={{ p: 1, margin: '10%', backgroundColor: '#333333', color: '#fff' }} >
