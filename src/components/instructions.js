@@ -132,8 +132,6 @@ const Instructions = ({ language }) => {
     [postEntry, carparkView, apartmentSign, firstFlight, secondFlightPartI, secondFlightPartII, apartmentDoorLS, apartmentDoorCU]
   ];
 
-
-
   const [pictureIndex, setPictureIndex] = useState(0);
   
   const pictureSwipeDirection = useRef('left');
@@ -142,8 +140,12 @@ const Instructions = ({ language }) => {
   const pictureIn = useRef(true);
 
   const [inout, setInout] = useState(Array(imageUrls.length).fill(null).map((urls,i) => Array(imageUrls[i].length).fill(true)));
-  const [ pictureLoading, setPictureLoading] = useState(true);
+  const [ pictureLoading, setPictureLoading] = useState(false);
 
+  const onPictureLoadStart = e => {
+    setPictureLoading(true);
+  }
+  
   const onPictureLoaded = e => {
     setPictureLoading(false);
   }
@@ -154,8 +156,13 @@ const Instructions = ({ language }) => {
       return (
         <Box component={'div'} sx={{position:'relative'}}>
           <Slide in={inout[i][j]} direction={pictureSwipeDirection.current} timeout={500} container={pictureContainer.current} sx={{width:'100%', zIndex:0}} >
-            <CardMedia component='img' image={imageUrls[i][j]} sx={{ height: '50vh', objectFit: 'contain' }} onLoad={onPictureLoaded} />
+            <CardMedia loading='lazy' component='img' image={imageUrls[i][j]} sx={{ height: '50vh', objectFit: 'contain' }} onLoadStart={onPictureLoadStart} onLoad={onPictureLoaded} />
           </Slide>
+          {pictureLoading && <Skeleton variant='rectangular' sx={{height:'25%', width:'100%', position:'absolute', top:0, zIndex:20}} /> }
+          {pictureLoading && <Skeleton variant='rectangular' sx={{height:'25%', width:'100%', position:'absolute', top:'25%', zIndex:20}} /> }
+          {pictureLoading && <Skeleton variant='rectangular' sx={{height:'25%', width:'100%', position:'absolute', top:'50%', zIndex:20}} /> }
+          {pictureLoading && <Skeleton variant='rectangular' sx={{height:'25%', width:'100%', position:'absolute', top:'75%', zIndex:20}} /> }
+          {pictureLoading && <Typography fontSize={'5rem'} >LOADING...</Typography> }
         </Box>
       )
     }
@@ -166,7 +173,6 @@ const Instructions = ({ language }) => {
     
     return images[activeStep][pictureIndex];
   }
-
 
   const onLeftButtonClicked = (eventData) => {
     console.log(`user swiped left`);
@@ -259,22 +265,19 @@ const Instructions = ({ language }) => {
   return (
     <>
     <div {...handlers} >
-      <Card raised={true} sx={{ m:'auto', width:{xs:'100vw', md:'50vw'}, height: '100vh', p: 2, backgroundColor: '#333333', zIndex:0, position:'relative' }} onLoad={ onPictureLoaded }>
-        <CardMedia component={'div'} sx={{zIndex:0}}>
+      <Card raised={true} sx={{ margin:'auto', width:{xs:'100vw', md:'50vw'}, height: '100vh', p: 2, backgroundColor: '#333333', zIndex:0, position:'absolute', top:0, left:'25%', overflow:'hidden' }} >
+        <CardMedia component={'div'} sx={{zIndex:0, height:'75%', position:'absolute', top:0}} >
           <Box className="relative m-auto" sx={{height:'100%'}} >
           <Pictures />
-          <Button sx={{position:'absolute', left:0, top:'50%'}}  onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'4rem', color:'white'}} className=' backdrop-blur bg-white bg-opacity-30 rounded-full  ' /></Button>
-          <Button sx={{position: 'absolute', right:0, top:'50%'}} onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'4rem', color:'white'}} className='backdrop-blur bg-white  bg-opacity-30 rounded-full ' /></Button>
+          <Button sx={{position:'absolute', left:0, top:'50%', zIndex:5}}  onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'6rem', color:'white', padding:'2rem'}} className=' backdrop-blur bg-white bg-opacity-30 rounded-full  ' /></Button>
+          <Button sx={{position: 'absolute', right:0, top:'50%', zIndex:5}} onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'6rem', color:'white', padding:'2rem'}} className='backdrop-blur bg-white  bg-opacity-30 rounded-full ' /></Button>
           </Box>
-          {pictureLoading && <Skeleton variant='text' sx={{height:'100%', width:'100%', position:'absolute', top:0}} /> }
-
         </CardMedia>
-      <CardContent sx={{ color: '#ffffff', width:'95%', height:'auto', zIndex:10, position:'absolute', bottom:5, margin:'auto' }} className="MuiDialog-paper" >
-        <Paper variant='elevation' elevation={5} sx={{ p: 1, margin: '10%', backgroundColor: '#333333', color: '#fff' }} >
-          <Typography className={`${language === "arabic" && '[writing-mode:horizontal-rtl]'}`} >{language && steps[language][activeStep]}</Typography>
+      <CardContent sx={{ color: '#ffffff', width:'50%', height:'25%', zIndex:0, position:'absolute', bottom:'0%',left:'25%', margin:'auto', alignContent:'middle' }} className="MuiDialog-paper" >
+        <Paper variant='elevation' elevation={5} sx={{ p: 1, margin: 'auto', backgroundColor: '#333333', color: '#fff', position:'absolute', bottom:'50%' }} >
+          <Typography fontSize={'1.25rem'} sx={{zIndex:-10}} className={`${language === "arabic" && '[writing-mode:horizontal-rtl]'}`} >{language && steps[language][activeStep]}</Typography>
         </Paper>
       </CardContent>
-        
         {/* <MobileStepper sx={{ maxWidth: { xs: '100%', sm: '100%', md: '100%' }, position: 'fixed', bottom: 0, m: 'auto', backgroundColor: '#333333', color: '#ffffff' }}
           variant="text"
           steps={3}
