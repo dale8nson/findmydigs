@@ -165,7 +165,7 @@ const Instructions = ({ language, inout, setInout, imageUrls, activeStep, setAct
     return images[activeStep][pictureIndex];
   }
 
-  const onLeftButtonClicked = (eventData) => {
+  const onRightButtonClicked = (eventData) => {
     console.log(`user swiped left`);
     if (pictureIndex < pictureCount.current - 1) {
       const a = inout[activeStep].toSpliced(pictureIndex,2,false,true);
@@ -189,7 +189,7 @@ const Instructions = ({ language, inout, setInout, imageUrls, activeStep, setAct
     // pictureAppear.current = true;
   }
 
-  const onRightButtonClicked = (eventData)  => {
+  const onLeftButtonClicked = (eventData)  => {
     console.log(`user swiped right`);
     if (pictureIndex > 0) {
       const a = inout[activeStep].toSpliced(pictureIndex - 1, 2, true, false);
@@ -263,11 +263,11 @@ const Instructions = ({ language, inout, setInout, imageUrls, activeStep, setAct
         <CardMedia component={'div'} sx={{zIndex:0, height:'75%', position:'absolute',top:0, margin:'auto', width:'100%'}} >
           <Box sx={{height:'100%', width:'100%', margin:'auto'}} >
           <Pictures />
-          <Button sx={{height:'10%', position:'absolute', left:'0%', top:'45%', zIndex:5}}  onClick={onRightButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'6rem', color:'white', padding:'2rem'}} className=' backdrop-blur bg-white bg-opacity-30 rounded-full  ' /></Button>
-          <Button sx={{height: '10%', position: 'absolute', right:'0%', top:'45%', zIndex:5}} onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'6rem', color:'white', padding:'2rem'}} className='backdrop-blur bg-white  bg-opacity-30 rounded-full ' /></Button>
+          <Button sx={{height:'10%', position:'absolute', left:'0%', top:'45%', zIndex:5}}  onClick={onLeftButtonClicked}><ArrowBackIosNewIcon sx={{fontSize:'6rem', color:'white', padding:'2rem'}} className=' backdrop-blur bg-white bg-opacity-30 rounded-full  ' /></Button>
+          <Button sx={{height: '10%', position: 'absolute', right:'0%', top:'45%', zIndex:5}} onClick={onRightButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'6rem', color:'white', padding:'2rem'}} className='backdrop-blur bg-white  bg-opacity-30 rounded-full ' /></Button>
           </Box>
         </CardMedia>
-      <CardContent sx={{ color: '#ffffff', width:'100%', minHeight:'25%', zIndex:0, position:'absolute', bottom:0, margin:'auto' }} className="MuiDialog-paper" >
+      <CardContent sx={{ color: '#ffffff', width:'100%', minHeight:'25%', zIndex:0, position:'absolute', bottom:0, margin:'auto', overflow:'scroll' }} className="MuiDialog-paper" >
         <Paper variant='elevation' elevation={5} sx={{ p:2, marginInline: 'auto', marginBlock:'0', backgroundColor: '#333333', color: '#fff', position:'absolute', left:0, top:0, width:'100%', height:'100%' }} >
           <Typography fontSize={'1.25rem'} sx={{zIndex:-10, width:'100%', height:'100%', marginInline:'auto', marginBlock:'0'}} className={`${language === "arabic" && '[writing-mode:horizontal-rtl]'}`} >{language && steps[language][activeStep]}</Typography>
         </Paper>
