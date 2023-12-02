@@ -59,7 +59,7 @@ const LanguageSelect = ({ setLanguage, languageDialogOpen, setLanguageDialogOpen
   })
 
   return (
-    <Dialog open={languageDialogOpen} scroll='paper' >
+    <Dialog open={languageDialogOpen} scroll='paper' sx={{margin:'auto', width:'100%', height:'100%'}} >
       <DialogTitle>
         <LanguageIcon />
         Language
