@@ -30,12 +30,14 @@ const IndexPage = () => {
   const [language, setLanguage] = useState('');
   const [languageDialogOpen, setLanguageDialogOpen] = useState(true);
   const [inout, setInout] = useState(Array(imageUrls.length).fill(null).map((urls,i) => Array(imageUrls[i].length).fill(false)));
+  const [activeStep, setActiveStep] = useState(0);
+
   return (
     <>
     <Suspense fallback=<CircularProgress /> >
-      <Container maxWidth='xl'  sx={{height:'100vh', backgroundColor:'#333333'}}>
+      <Container maxWidth='xl'  sx={{height:'100dvh', backgroundColor:'#333333'}}>
         <LanguageSelect {...{setLanguage, languageDialogOpen, setLanguageDialogOpen, setInout, inout}} />
-        <Instructions language={language} {...{inout, setInout, imageUrls}} />
+        <Instructions language={language} {...{inout, setInout, imageUrls, activeStep, setActiveStep}} />
       </Container>
     </Suspense>
     </>

@@ -19,9 +19,9 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const Instructions = ({ language, inout, setInout, imageUrls }) => {
+const Instructions = ({ language, inout, setInout, imageUrls, activeStep, setActiveStep }) => {
 
-  const [activeStep, setActiveStep] = useState(0);
+  
 
   console.log(`language:`, language);
   const steps = {
@@ -93,6 +93,7 @@ const Instructions = ({ language, inout, setInout, imageUrls }) => {
     ],
     'punjabi-gurmukhi': [
       `Quest ਹੋਟਲ ਦੇ ਕੋਲ ਡਰਾਈਵਵੇਅ ਵਿੱਚ ਦਾਖਲ ਹੋਵੋ। ਸਾਡੀ ਅਪਾਰਟਮੈਂਟ ਬਿਲਡਿੰਗ ਉਸ ਡਰਾਈਵਵੇਅ ਦੇ ਕੋਲ ਹੈ। ਤੁਸੀਂ “No Entry” ਚਿੰਨ੍ਹ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰ ਸਕਦੇ ਹੋ। ਵਰਤਮਾਨ ਵਿੱਚ ਇਹ ਇੱਕ ਪ੍ਰਵੇਸ਼ ਦੁਆਰ ਅਤੇ ਇੱਕ ਨਿਕਾਸ ਦੋਨਾਂ ਦੇ ਰੂਪ ਵਿੱਚ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।`,
+      `ਧਾਤੂ ਦੇ ਦਰਵਾਜ਼ੇ ਦੇ ਕੋਲ ਇੰਟਰਕਾਮ 'ਤੇ ਯੂਨਿਟ 29 ਨੂੰ ਕਾਲ ਕਰੋ, ਅਤੇ ਅਸੀਂ ਤੁਹਾਨੂੰ ਅੰਦਰ ਜਾਣ ਦੇ ਸਕਦੇ ਹਾਂ।`,
       `ਸਾਡਾ ਐਪਾਰਟਮੈਂਟ "Level 2" 'ਤੇ ਹੈ।'`
     ],
     'urdu': [
@@ -130,7 +131,6 @@ const Instructions = ({ language, inout, setInout, imageUrls }) => {
   const pictureContainer = useRef(null);
   const pictureIn = useRef(true);
 
-  // const [inout, setInout] = useState(Array(imageUrls.length).fill(null).map((urls,i) => Array(imageUrls[i].length).fill(false)));
   const [ pictureLoading, setPictureLoading] = useState(false);
 
   const onPictureLoadStart = e => {
@@ -146,7 +146,7 @@ const Instructions = ({ language, inout, setInout, imageUrls }) => {
     return urls.map((url, j) => {
       return (
         <Box component={'div'} sx={{position:'absolute', margin:'auto', width:'100%', height:'100%'}}>
-          <Slide mountOnEnter unmountOnExit in={inout[i][j]} direction={pictureSwipeDirection.current} timeout={500} container={pictureContainer.current} sx={{width:'100%', zIndex:0}} >
+          <Slide mountOnEnter in={inout[i][j]} direction={pictureSwipeDirection.current} timeout={500} container={pictureContainer.current} sx={{width:'100%', zIndex:0}} >
             <CardMedia loading='lazy' component='img' image={imageUrls[i][j]} sx={{ width:'100%', height: '100%', objectFit: 'contain' }} onLoadStart={onPictureLoadStart} onLoad={onPictureLoaded} />
           </Slide>
           {pictureLoading && <Skeleton variant='rectangular' sx={{margin:'auto', height:'25%', width:'95%', position:'absolute', top:0, zIndex:20}} /> }
@@ -259,7 +259,7 @@ const Instructions = ({ language, inout, setInout, imageUrls }) => {
   return (
     <>
     <div {...handlers} >
-      <Card raised={true} sx={{ margin:'auto', width:{xs:'100vw', md:'50vw'}, height: '100dvh', backgroundColor: '#333333', zIndex:0, position:'absolute', top:0, left:0, overflow:'hidden' }} >
+      <Card raised={true} sx={{ margin:'auto', width:{xs:'100vw', md:'50vw'}, height: '100dvh', backgroundColor: '#333333', zIndex:0, position:'absolute', top:0, left:{xs:0, md:'25%'}, overflow:'hidden' }} >
         <CardMedia component={'div'} sx={{zIndex:0, height:'75%', position:'absolute',top:0, margin:'auto', width:'100%'}} >
           <Box sx={{height:'100%', width:'100%', margin:'auto'}} >
           <Pictures />
