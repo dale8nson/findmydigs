@@ -274,7 +274,7 @@ const Instructions = ({ language }) => {
           <Button sx={{height: '10%', position: 'absolute', right:'0%', top:'45%', zIndex:5}} onClick={onLeftButtonClicked}> <ArrowForwardIosIcon sx={{fontSize:'6rem', color:'white', padding:'2rem'}} className='backdrop-blur bg-white  bg-opacity-30 rounded-full ' /></Button>
           </Box>
         </CardMedia>
-      <CardContent sx={{ color: '#ffffff', width:'100%', height:'25%', zIndex:0, position:'absolute', bottom:'0', margin:'auto' }} className="MuiDialog-paper" >
+      <CardContent sx={{ color: '#ffffff', width:'100%', height:'auto', zIndex:0, position:'absolute', top:'75%', margin:'auto' }} className="MuiDialog-paper" >
         <Paper variant='elevation' elevation={5} sx={{ p:2, margin: 'auto', backgroundColor: '#333333', color: '#fff', position:'absolute', left:0, bottom:'50%', width:'100%', height:'100%' }} >
           <Typography fontSize={'1.25rem'} sx={{zIndex:-10, width:'100%', height:'100%'}} className={`${language === "arabic" && '[writing-mode:horizontal-rtl]'}`} >{language && steps[language][activeStep]}</Typography>
         </Paper>
