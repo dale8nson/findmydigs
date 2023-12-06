@@ -167,12 +167,12 @@ const Instructions = ({ language, inout, io, setInout, imageUrls, activeStep, se
         <div {...handlers} >
           <Card raised={true} sx={{ display: 'flex', margin: '0 auto', width: { xs: '100vw', md: '30vw' }, height: '100vh', backgroundColor: '#333333', zIndex: 0, position: 'absolute', top: 0, left: { xs: 0, md: '35%' }, alignContent:'top' }} >
             <CardMedia component={'div'} sx={{ zIndex: 1, position: 'absolute', top: 0, margin: '0 auto', width: '100%', height:'50%' }} >
-              {/* <Box sx={{ height: '100%', width: '95%', margin: '0 auto', overflow: 'hidden', zIndex:100, overflow:'hidden' }} > */}
-                {/* {images} */}
-                <Dots dot={pictureIndex} of={pictureCount} />
+              <Box sx={{ height: '100%', width: '95%', margin: '0 auto', overflow: 'hidden', zIndex:100, overflow:'hidden' }} >
+                {images}
+                {/* <Dots dot={pictureIndex} of={pictureCount} /> */}
                 <Button sx={{ height: '10%', position: 'absolute', left: '2.5%', top: '45%', zIndex: 5 }} onClick={onLeftButtonClicked} ><ArrowBackIosNewIcon sx={{ fontSize: '6rem', color: 'white', padding: '2rem' }} className=' backdrop-blur bg-white bg-opacity-30 rounded-full  ' /></Button>
                 <Button sx={{ height: '10%', position: 'absolute', right: '2.5%', top: '45%', zIndex: 5 }} onClick={onRightButtonClicked} > <ArrowForwardIosIcon sx={{ fontSize: '6rem', color: 'white', padding: '2rem' }} className='backdrop-blur bg-white  bg-opacity-30 rounded-full ' /></Button>
-              {/* </Box> */}
+              </Box>
             </CardMedia>
             <CardContent sx={{ color: '#ffffff', width: '95%', height:'50%', zIndex: 0, position: 'absolute', top: {xs:'50%'}, left:'0', margin: '0 auto' }} className="MuiDialog-paper" >
               <Paper variant='elevation' elevation={5} sx={{margin: '0 auto', backgroundColor: '#333333', color: '#fff', position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', overflowY: 'scroll' }} >
