@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -25,13 +25,17 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import DialogButton from "./dialog-button";
+import { Directions, IosShare } from "@mui/icons-material";
 
-const LanguageSelect = ({ setLanguage, languageDialogOpen, setLanguageDialogOpen, inout, setInout }) => {
+const LanguageSelect = ({ setLanguage, languageDialogOpen, directions, setLanguageDialogOpen, inout, io, setInout, slideShow, setIntervalID, activeStep, setActiveStep }) => {
 
   const clickHandler = (val) => {
     setLanguage(val);
     const a = inout[0].toSpliced(0,1,true);
-    setInout(inout.toSpliced(0,1,a));
+    directions.current[0] = directions.current[0].toSpliced(0, 1, 'left');
+    io.current[0] = io.current[0].toSpliced(0,1,true);
+    setInout(io.current);
+    slideShow(activeStep, inout[activeStep].length, 0);
     setLanguageDialogOpen(false);
   }
 
@@ -73,33 +77,6 @@ const LanguageSelect = ({ setLanguage, languageDialogOpen, setLanguageDialogOpen
       </DialogContent>
     </Dialog>
   );
-
-  // return (
-  //   <React.Fragment>
-  //     <CssBaseline />
-  //     <Box sx={{ bgcolor: '#dddddd', height: 'auto', m:'auto', p: 2 }}>
-  //       <Stack>
-  //         <FormControl sx={{maxWidth:600}} >
-  //           <InputLabel id="language-select-label" ><LanguageIcon />Language</InputLabel>
-  //           <Select labelId="language-select-label" label="Language" value={language} onChange={onLanguageSelect} >
-  //             <MenuItem value='english'>English</MenuItem>
-  //             <MenuItem value='mandarin'>官话</MenuItem>
-  //             <MenuItem value='arabic'>عَرَبِيّ</MenuItem>
-  //             <MenuItem value='vietnamese'>tiếng Việt</MenuItem>
-  //             <MenuItem value='thai'>ภาษาไทย</MenuItem>
-  //             <MenuItem value='korean'>한국어</MenuItem>
-  //             <MenuItem value='cantonese'>廣東話</MenuItem>
-  //             <MenuItem value='punjabi-shahmukhi'>پنجابی; </MenuItem>
-  //             <MenuItem value='punjabi-gurmukhi'>ਪੰਜਾਬੀ</MenuItem>
-  //             <MenuItem value='italian'>l'italiano</MenuItem>
-  //             <MenuItem value='greek'>Ελληνικά</MenuItem>
-  //             <MenuItem value='spanish'>el castellano</MenuItem>
-  //           </Select>
-  //         </FormControl>
-  //       </Stack>
-  //     </Box>
-  //   </React.Fragment>
-  // );
 }
 
 export default LanguageSelect;
