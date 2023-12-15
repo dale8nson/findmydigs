@@ -158,11 +158,11 @@ const Instructions = ({ language, inout, io, setInout, imageUrls, activeStep, se
   return (
     <>
     <ThemeProvider theme={defaultTheme} >
-      {/* <div {...handlers} > */}
-        <Box component='main' >
+      <div {...handlers} >
+        <Box component='main' sx={{ display: 'flex', width: { xs: '100vw', md: '30vw' }, height: '100vh', position: 'absolute', top: 0, left: { xs: 0, md: '35%' } }}>
           {/* <CSSBaseline /> */}
-          <Card raised={true} sx={{ display: 'flex', margin: '0 auto', width: { xs: '100vw', md: '30vw' }, height: '100vh', backgroundColor: '#333333', zIndex: 0, position: 'absolute', top: 0, left: { xs: 0, md: '35%' }, alignContent: 'top' }} >
-            <CardMedia component={'div'} sx={{ zIndex: 1, position: 'absolute', top: 0, margin: '0 auto', width: '100%', height: '50%' }} >
+          <Card raised={true}  >
+            <CardMedia component={'div'} >
               <Box sx={{ height: '100%', width: '95%', margin: '0 auto', overflow: 'hidden', zIndex: 100, overflow: 'hidden' }} >
                 {images}
                 {/* <Dots dot={pictureIndex} of={pictureCount} /> */}
@@ -177,7 +177,7 @@ const Instructions = ({ language, inout, io, setInout, imageUrls, activeStep, se
             </CardContent>
           </Card>
         </Box>
-      {/* </div> */}
+      </div>
       </ThemeProvider>
     </>
   );

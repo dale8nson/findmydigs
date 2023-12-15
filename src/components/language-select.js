@@ -35,7 +35,7 @@ const LanguageSelect = ({ setLanguage, languageDialogOpen, directions, setLangua
     directions.current[0] = directions.current[0].toSpliced(0, 1, 'left');
     io.current[0] = io.current[0].toSpliced(0,1,true);
     setInout(io.current);
-    slideShow(activeStep, inout[activeStep].length, 0);
+    // slideShow(activeStep, inout[activeStep].length, 0);
     setLanguageDialogOpen(false);
   }
 
