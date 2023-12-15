@@ -58,7 +58,7 @@ const Instructions = ({ language, inout, io, setInout, imageUrls, activeStep, se
         <div ref={pictureContainer}>
           <Slide mountOnEnter unmountOnExit in={io.current[i][j]} easing={{ enter: 'linear', exit: 'linear' }} direction={directions.current[i][j]} timeout={1000} container={pictureContainer.current} sx={{ width: '100%', zIndex: 0, objectFit: 'contain', overflowY: 'hidden' }}>
             <Box key={`${i}-${j}`} component={'div'} sx={{ position: 'absolute', top: '2.5%', left: '2.5%', margin: 'auto', width: '95%', height: '95%', overflow: 'hidden', backgroundImage: imageUrls[i][j], zIndex: -1 }} >
-              {/* <CardMedia component='img' image={imageUrls[i][j]} onLoadStart={onPictureLoadStart} onLoad={onPictureLoaded} sx={{objectFit:'contain'}} /> */}
+              <CardMedia component='img' image={imageUrls[i][j]} onLoadStart={onPictureLoadStart} onLoad={onPictureLoaded} sx={{objectFit:'contain'}} />
             </Box>
           </Slide>
         </div>
